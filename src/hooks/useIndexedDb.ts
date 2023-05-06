@@ -1,17 +1,13 @@
 import { useEffect, useState } from 'react';
 import { openDB } from 'idb';
-
-interface Memo {
-  id: number;
-  text: string;
-}
+import { VoiceMemoType } from '@types';
 
 interface IndexedDb {
-  memos: Memo[];
+  memos: VoiceMemoType[];
 }
 
 const useIndexedDb = () => {
-  const [memos, setMemos] = useState<Memo[]>([]);
+  const [memos, setMemos] = useState<VoiceMemoType[]>([]);
 
   useEffect(() => {
     const initDb = async () => {
@@ -28,7 +24,7 @@ const useIndexedDb = () => {
     initDb();
   }, []);
 
-  const saveMemo = async (memo: Memo) => {
+  const saveMemo = async (memo: VoiceMemoType) => {
     const db = await openDB<IndexedDb>('my-voice-memos', 1);
     const tx = db.transaction('memos', 'readwrite');
     const store = tx.objectStore('memos');
@@ -39,7 +35,7 @@ const useIndexedDb = () => {
 
   const addMemo = (memoText: string) => {
     const id = new Date().getTime();
-    const memo: Memo = { id, text: memoText };
+    const memo: VoiceMemoType = { id, text: memoText };
     saveMemo(memo);
   };
 
