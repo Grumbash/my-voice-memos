@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 
 const recognitionSvc = window.SpeechRecognition || window.webkitSpeechRecognition
 const recognition = new recognitionSvc()
-recognition.continuous = true
 recognition.lang = 'en-US'
 
 const useSpeechRecognition = ({ addMemo }: { addMemo: (memoText: string) => void }) => {
@@ -23,10 +22,7 @@ const useSpeechRecognition = ({ addMemo }: { addMemo: (memoText: string) => void
       for (const result of event.results) {
         addMemo(result[0].transcript)
       }
-    }
-
-    recognition.onspeechend = () => {
-      stopRecording()
+      setIsRecording(false)
     }
 
     return () => {

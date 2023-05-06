@@ -10,7 +10,7 @@ type VoiceMemoListProps = {
 
 const VoiceMemoList = ({ memos, onEdit, onReRecord, onDelete }: VoiceMemoListProps) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="max-w-md mx-auto flex flex-col gap-4">
       {memos.map((memo) => (
         <VoiceMemo
           key={memo.id}

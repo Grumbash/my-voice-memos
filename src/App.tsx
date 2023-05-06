@@ -6,7 +6,7 @@ const App = () => {
   const { memos, addMemo, editMemo, deleteMemo } = useIndexedDb()
   const { isRecording, startRecording, stopRecording } = useSpeechRecognition({ addMemo })
 
-  const handleRecordingClick = () => {
+  const handleRecording = () => {
     if (isRecording) {
       stopRecording()
     } else {
@@ -14,20 +14,23 @@ const App = () => {
     }
   }
 
-  const handleEditAction = (id: number) => (text: string) => {
+  const handleEdit = (id: number) => (text: string) => {
     editMemo(id, text)
   }
 
-  const handleReRecordAction = (id: number) => () => {
+  const handleReRecord = (id: number) => () => {
     const memo = memos.find((memo) => memo.id === id)
     if (!memo) {
       return
     }
-    deleteMemo(id)
-    startRecording()
+    stopRecording()
+    const newMemoText = memo.text ? memo.text + ' ' : ''
+    editMemo(id, newMemoText).then(() => {
+      startRecording()
+    })
   }
 
-  const handleDeleteAction = (id: number) => () => {
+  const handleDelete = (id: number) => () => {
     deleteMemo(id)
   }
 
@@ -39,7 +42,7 @@ const App = () => {
           className={`bg-indigo-500 text-white px-4 py-2 rounded-full shadow-md ${
             isRecording ? 'bg-red-500' : ''
           }`}
-          onClick={handleRecordingClick}
+          onClick={handleRecording}
         >
           {isRecording ? 'Stop' : 'Start'} recording
         </button>
@@ -47,9 +50,9 @@ const App = () => {
 
       <VoiceMemoList
         memos={memos}
-        onEdit={handleEditAction}
-        onReRecord={handleReRecordAction}
-        onDelete={handleDeleteAction}
+        onEdit={handleEdit}
+        onReRecord={handleReRecord}
+        onDelete={handleDelete}
       />
     </>
   )

@@ -12,6 +12,7 @@
   "dependencies": {
     "@types/dom-speech-recognition": "^0.0.1",
     "@types/node": "^20.0.0",
+    "framer-motion": "^10.12.8",
     "idb": "^7.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

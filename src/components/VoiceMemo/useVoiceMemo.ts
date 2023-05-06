@@ -3,39 +3,37 @@ import { useState, useCallback } from 'react';
 export interface UseVoiceMemoProps {
   initialText: string;
   onEdit: (text: string) => void;
-  onReRecord: () => void;
   onDelete: () => void;
 }
 
 export interface UseVoiceMemoResult {
   isEditing: boolean;
   text: string;
-  handleEditButtonClick: () => void;
-  handleSaveButtonClick: () => void;
-  handleCancelButtonClick: () => void;
+  handleEditButton: () => void;
+  handleSaveButton: () => void;
+  handleCancelButton: () => void;
   handleInputChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  handleDeleteButtonClick: () => void;
+  handleDeleteButton: () => void;
 }
 
 const useVoiceMemo = ({
   initialText,
   onEdit,
-  onReRecord,
   onDelete,
 }: UseVoiceMemoProps): UseVoiceMemoResult => {
   const [isEditing, setIsEditing] = useState(false);
   const [text, setText] = useState(initialText);
 
-  const handleEditButtonClick = useCallback(() => {
+  const handleEditButton = useCallback(() => {
     setIsEditing(true);
   }, []);
 
-  const handleSaveButtonClick = useCallback(() => {
+  const handleSaveButton = useCallback(() => {
     onEdit(text);
     setIsEditing(false);
   }, [onEdit, text]);
 
-  const handleCancelButtonClick = useCallback(() => {
+  const handleCancelButton = useCallback(() => {
     setText(initialText);
     setIsEditing(false);
   }, [initialText]);
@@ -47,18 +45,18 @@ const useVoiceMemo = ({
     [],
   );
 
-  const handleDeleteButtonClick = useCallback(() => {
+  const handleDeleteButton = useCallback(() => {
     onDelete();
   }, [onDelete]);
 
   return {
     isEditing,
     text,
-    handleEditButtonClick,
-    handleSaveButtonClick,
-    handleCancelButtonClick,
+    handleEditButton,
+    handleSaveButton,
+    handleCancelButton,
     handleInputChange,
-    handleDeleteButtonClick,
+    handleDeleteButton,
   };
 };
 
