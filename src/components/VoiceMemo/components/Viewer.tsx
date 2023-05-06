@@ -3,14 +3,14 @@ import { faEdit, faTrash, faUndoAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export interface ViewerProps {
-  memoText: string
+  text: string
   onReRecord: () => void
   handleEditButton: () => void
   handleDeleteButton: () => void
 }
 
 const Viewer: React.FC<ViewerProps> = ({
-  memoText,
+  text,
   onReRecord,
   handleEditButton,
   handleDeleteButton,
@@ -34,7 +34,7 @@ const Viewer: React.FC<ViewerProps> = ({
     <motion.div variants={containerVariants} initial="hidden" animate="visible">
       <div className="flex justify-between items-center">
         <motion.p className="mb-2" whileHover={{ color: '#10B981' }}>
-          {memoText}
+          {text}
         </motion.p>
         <motion.button
           className="text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"

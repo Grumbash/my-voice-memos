@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
 export interface UseVoiceMemoProps {
   initialText: string;
@@ -48,6 +48,10 @@ const useVoiceMemo = ({
   const handleDeleteButton = useCallback(() => {
     onDelete();
   }, [onDelete]);
+
+  useEffect(() => {
+    setText(initialText);
+  }, [initialText]);
 
   return {
     isEditing,

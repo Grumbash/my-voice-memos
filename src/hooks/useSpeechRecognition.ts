@@ -4,10 +4,17 @@ const recognitionSvc = window.SpeechRecognition || window.webkitSpeechRecognitio
 const recognition = new recognitionSvc()
 recognition.lang = 'en-US'
 
-const useSpeechRecognition = ({ addMemo }: { addMemo: (memoText: string) => void }) => {
-  const [isRecording, setIsRecording] = useState(false)
+export interface UseSpeechRecognitionProps {
+  addMemo: (memoText: string) => void
+  editMemo: (id: number, memoText: string) => void
+}
 
-  const startRecording = () => {
+const useSpeechRecognition = ({ addMemo, editMemo }: UseSpeechRecognitionProps) => {
+  const [isRecording, setIsRecording] = useState(false)
+  const [id, setId] = useState<number>()
+
+  const startRecording = (id?: number) => {
+    if (id) setId(id)
     setIsRecording(true)
     recognition.start()
   }
@@ -19,16 +26,22 @@ const useSpeechRecognition = ({ addMemo }: { addMemo: (memoText: string) => void
 
   useEffect(() => {
     recognition.onresult = (event) => {
-      for (const result of event.results) {
-        addMemo(result[0].transcript)
+      if (id) {
+        editMemo(id, event.results[0][0].transcript)
+        setId(undefined)
+      } else {
+        addMemo(event.results[0][0].transcript)
       }
+    }
+
+    recognition.onend = () => {
       setIsRecording(false)
     }
 
     return () => {
       recognition.stop()
     }
-  }, [])
+  }, [id])
 
   return {
     isRecording,

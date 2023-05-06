@@ -4,7 +4,7 @@ import useSpeechRecognition from '@hooks/useSpeechRecognition'
 
 const App = () => {
   const { memos, addMemo, editMemo, deleteMemo } = useIndexedDb()
-  const { isRecording, startRecording, stopRecording } = useSpeechRecognition({ addMemo })
+  const { isRecording, startRecording, stopRecording } = useSpeechRecognition({ addMemo, editMemo })
 
   const handleRecording = () => {
     if (isRecording) {
@@ -18,16 +18,9 @@ const App = () => {
     editMemo(id, text)
   }
 
-  const handleReRecord = (id: number) => () => {
-    const memo = memos.find((memo) => memo.id === id)
-    if (!memo) {
-      return
-    }
+  const handleReRecord = (id: number) => async () => {
     stopRecording()
-    const newMemoText = memo.text ? memo.text + ' ' : ''
-    editMemo(id, newMemoText).then(() => {
-      startRecording()
-    })
+    startRecording(id)
   }
 
   const handleDelete = (id: number) => () => {

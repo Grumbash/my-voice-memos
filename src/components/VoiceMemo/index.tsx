@@ -12,7 +12,7 @@ export interface MemoProps {
   onDelete: () => void
 }
 
-const VoiceMemo: React.FC<MemoProps> = ({ text: memoText, onEdit, onReRecord, onDelete }) => {
+const VoiceMemo: React.FC<MemoProps> = ({ text: initialText, onEdit, onReRecord, onDelete }) => {
   const {
     isEditing,
     text,
@@ -22,7 +22,7 @@ const VoiceMemo: React.FC<MemoProps> = ({ text: memoText, onEdit, onReRecord, on
     handleInputChange,
     handleDeleteButton,
   } = useVoiceMemo({
-    initialText: memoText,
+    initialText,
     onEdit,
     onDelete,
   })
@@ -44,7 +44,7 @@ const VoiceMemo: React.FC<MemoProps> = ({ text: memoText, onEdit, onReRecord, on
         />
       ) : (
         <Viewer
-          memoText={text}
+          text={text}
           onReRecord={onReRecord}
           handleEditButton={handleEditButton}
           handleDeleteButton={handleDeleteButton}
