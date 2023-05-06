@@ -8,9 +8,9 @@ type VoiceMemoListProps = {
   onDelete: (id: number) => () => void
 }
 
-const VoiceMemoList = ({ memos, onEdit, onReRecord, onDelete }: VoiceMemoListProps) => {
+const VoiceMemoList: React.FC<VoiceMemoListProps> = ({ memos, onEdit, onReRecord, onDelete }) => {
   return (
-    <div className="max-w-md mx-auto flex flex-col gap-4">
+    <div className="max-w-md mx-auto flex flex-col gap-4 h-screen overflow-y-auto">
       {memos.map((memo) => (
         <VoiceMemo
           key={memo.id}
