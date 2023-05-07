@@ -11,9 +11,9 @@ const App = () => {
       <RecordSection isRecording={isRecording} toggleRecording={toggleRecording} />
       <VoiceMemoList
         memos={memos}
-        onEdit={handleEdit}
-        onReRecord={handleReRecord}
-        onDelete={handleDelete}
+        onEditWrapper={handleEdit}
+        onReRecordWrapper={handleReRecord}
+        onDeleteWrapper={handleDelete}
       />
     </>
   )
