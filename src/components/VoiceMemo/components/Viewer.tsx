@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export interface ViewerProps {
   text: string
+  isReRecord: boolean
   onReRecord: () => void
   handleEditButton: () => void
   handleDeleteButton: () => void
@@ -11,6 +12,7 @@ export interface ViewerProps {
 
 const Viewer: React.FC<ViewerProps> = ({
   text,
+  isReRecord,
   onReRecord,
   handleEditButton,
   handleDeleteButton,
@@ -39,11 +41,15 @@ const Viewer: React.FC<ViewerProps> = ({
         <motion.button
           className="text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
           onClick={onReRecord}
+          disabled={isReRecord}
           variants={buttonVariants}
           whileHover="hover"
           whileTap="tap"
         >
-          <FontAwesomeIcon icon={faUndoAlt} />
+          <div className="flex items-center">
+            <FontAwesomeIcon icon={faUndoAlt} className="mr-2" />
+            <span>Re-Record</span>
+          </div>
         </motion.button>
       </div>
       <motion.div className="flex justify-end space-x-2">
@@ -54,10 +60,10 @@ const Viewer: React.FC<ViewerProps> = ({
           whileHover="hover"
           whileTap="tap"
         >
-          <motion.div className="flex items-center" variants={buttonVariants}>
+          <div className="flex items-center">
             <FontAwesomeIcon icon={faEdit} className="mr-2" />
-            Edit
-          </motion.div>
+            <span>Edit</span>
+          </div>
         </motion.button>
         <motion.button
           className="px-4 py-2 text-white bg-red-500 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
@@ -66,10 +72,10 @@ const Viewer: React.FC<ViewerProps> = ({
           whileHover="hover"
           whileTap="tap"
         >
-          <motion.div className="flex items-center" variants={buttonVariants}>
+          <div className="flex items-center">
             <FontAwesomeIcon icon={faTrash} className="mr-2" />
-            Delete
-          </motion.div>
+            <span>Delete</span>
+          </div>
         </motion.button>
       </motion.div>
     </motion.div>
