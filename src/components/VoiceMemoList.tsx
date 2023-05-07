@@ -3,24 +3,26 @@ import { VoiceMemoType } from '@types'
 
 type VoiceMemoListProps = {
   memos: VoiceMemoType[]
+  isRecording: boolean
   onEditWrapper: (id: number) => (text: string) => void
   onReRecordWrapper: (id: number) => () => void
   onDeleteWrapper: (id: number) => () => void
 }
 
-const VoiceMemoList: React.FC<VoiceMemoListProps> = ({ memos, onEditWrapper, onReRecordWrapper, onDeleteWrapper }) => {
+const VoiceMemoList: React.FC<VoiceMemoListProps> = ({ memos, isRecording, onEditWrapper, onReRecordWrapper, onDeleteWrapper }) => {
   return (
-    <div className="max-w-md mx-auto flex flex-col gap-4 h-screen overflow-y-auto">
+    <ul className="max-w-md p-6 mx-auto flex flex-col gap-4 overflow-y-auto">
       {memos.map((memo) => (
         <VoiceMemo
           key={memo.id}
           text={memo.text}
+          isRecording={isRecording}
           onEdit={onEditWrapper(memo.id)}
           onReRecord={onReRecordWrapper(memo.id)}
           onDelete={onDeleteWrapper(memo.id)}
         />
       ))}
-    </div>
+    </ul>
   )
 }
 

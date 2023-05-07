@@ -14,6 +14,7 @@ const App = () => {
         onEditWrapper={handleEdit}
         onReRecordWrapper={handleReRecord}
         onDeleteWrapper={handleDelete}
+        isRecording={isRecording}
       />
     </>
   )
