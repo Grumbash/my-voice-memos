@@ -1,33 +1,33 @@
-import useIndexedDb from "@hooks/useIndexedDb";
-import useSpeechRecognition from "@hooks/useSpeechRecognition";
+import useIndexedDb from '@hooks/useIndexedDb'
+import useSpeechRecognition from '@hooks/useSpeechRecognition'
 
 const useApp = () => {
-  const { memos, addMemo, editMemo, deleteMemo } = useIndexedDb();
+  const { memos, addMemo, editMemo, deleteMemo } = useIndexedDb()
   const { isRecording, startRecording, stopRecording } = useSpeechRecognition({
     addMemo,
-    editMemo
-  });
+    editMemo,
+  })
 
   const toggleRecording = () => {
     if (isRecording) {
-      stopRecording();
+      stopRecording()
     } else {
-      startRecording();
+      startRecording()
     }
-  };
+  }
 
   const handleEdit = (id: number) => (text: string) => {
-    editMemo(id, text);
-  };
+    editMemo(id, text)
+  }
 
   const handleReRecord = (id: number) => () => {
-    stopRecording();
-    startRecording(id);
-  };
+    stopRecording()
+    startRecording(id)
+  }
 
   const handleDelete = (id: number) => () => {
-    deleteMemo(id);
-  };
+    deleteMemo(id)
+  }
 
   return {
     memos,
@@ -35,8 +35,8 @@ const useApp = () => {
     toggleRecording,
     handleEdit,
     handleReRecord,
-    handleDelete
-  };
-};
+    handleDelete,
+  }
+}
 
-export default useApp;
+export default useApp

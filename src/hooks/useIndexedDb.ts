@@ -30,7 +30,7 @@ const useIndexedDb = () => {
     const store = tx.objectStore('memos')
     await store.put(memo)
     await tx.done
-    setMemos((prevMemos) => [...prevMemos, memo])
+    setMemos((prevMemos) => [memo, ...prevMemos])
   }
 
   const addMemo = (memoText: string) => {

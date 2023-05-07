@@ -37,11 +37,13 @@ const useSpeechRecognition = ({ addMemo, editMemo }: UseSpeechRecognitionProps) 
     recognition.onend = () => {
       setIsRecording(false)
     }
+  }, [id])
 
+  useEffect(() => {
     return () => {
       recognition.stop()
     }
-  }, [id])
+  }, [])
 
   return {
     isRecording,
