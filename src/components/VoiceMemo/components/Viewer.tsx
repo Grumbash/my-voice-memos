@@ -34,8 +34,8 @@ const Viewer: React.FC<ViewerProps> = ({
 
   return (
     <motion.div variants={containerVariants} initial="hidden" animate="visible">
-      <div className="flex justify-between items-center">
-        <motion.p className="mb-2" whileHover={{ color: '#10B981' }}>
+      <div className="flex justify-between items-center mb-2">
+        <motion.p whileHover={{ color: '#10B981' }}>
           {text}
         </motion.p>
         <motion.button
